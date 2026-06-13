@@ -20,14 +20,14 @@ func main() {
 		slog.NewTextHandler(os.Stdout, &slog.HandlerOptions{Level:slog.LevelDebug}),
 			)
 	ctx, _:= context.WithTimeout(context.Background(), 5*time.Second)
-	cache, err := redis_client.NewCache(ctx, cfg.Redis)
+	cache, err := redis_client.NewCache(ctx, cfg.Redis,log)
 	if err != nil{
 		log.Error("failed to init redis","err", err)
 		os.Exit(1)
 	}
-	api:= api_client.NewClient(cfg.API)
+	api:= api_client.NewClient(cfg.API, log)
 	conv := service.NewConverter(cache,  api, log)
-	h := handler.NewHandler(conv)
+	h := handler.NewHandler(conv, log)
 	mux := http.NewServeMux()
 	mux.HandleFunc("/convert", h.Convert)
 
