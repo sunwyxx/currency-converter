@@ -52,7 +52,5 @@ func (c *Converter) Convert(ctx context.Context, base string, targets []string, 
 		part3 := parts[len(parts)-1]
 		result[part3] = rates[keyRateTarget] * amount
 	}
-	c.log.Info("result", "result", rates)
-	c.log.Info("result", "result", result)
 	return result, nil
 }

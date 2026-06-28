@@ -53,9 +53,8 @@ func (h *Handler) Convert(w http.ResponseWriter, r *http.Request){
 	w.Header().Set("Content-Type", "application/json")
 	err = json.NewEncoder(w).Encode(map[string]interface{}{
 		"from": base,
-		"to": target,
 		"amount": amount,
-		"result": result,
+		"to": result,
 		})
 	if err != nil {
 		h.log.Error("Encode failed")
